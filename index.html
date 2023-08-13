@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEATHER APP </title>
+</head>
+<style>
+    body{
+        text-align: center;
+        background-color: rgb(26, 19, 19);
+        color: antiquewhite;
+margin: 120px;
+}
+#cityName{
+    border-radius: 5px;
+}
+button{
+    color: rgb(0, 0, 0);
+    background-color: cadetblue;
+
+}
+button:hover{
+    cursor: crosshair;
+    background-color: rgb(254, 191, 17);
+    color: rgb(255, 0, 98);
+}
+h1:hover{
+    color: rgb(136, 51, 220);
+    cursor: all-scroll;
+}
+</style>
+<body>
+    
+<h1> <i>  Weather Application :</i> </h1>
+<form onsubmit="getWeather(); return false">
+
+
+    <label for="cityName">City Name:</label>
+    <input type="text" name="cityName" id="cityName" placeholder="enter your city name" ><br>
+<br>
+<button type="submit" >Get Weather</button><br>
+
+</form>
+<div id="result" ></div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script  type="module">
+    
+    let name="john";
+    
+    window.getWeather= function(){
+        
+        let cityName = document.querySelector("#cityName").value;
+        
+ let API_Key="7e997e6c60cb48e41cfd4d3aa053c493";
+axios.get(` https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_Key}&units=metric`)
+  .then(function (response) {
+    console.log(response.data);
+document.querySelector("#result").innerHTML=`The weather of ${cityName} is ${response.data.main.temp}°C   <h1> Wind right NOW is ${response.data.wind.speed} Km/Hr</h1>`;
+
+  })
+  .catch(function (error) {
+
+    console.log(error.data);
+document.querySelector("#result").innerHTML="Error in getting weather";
+
+})
+
+}
+
+</script>
+
+
+</body>
+</html>
